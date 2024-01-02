@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+body{
+    height: 300vh;
+    /* background-color: #F1F1F1; */
+  background-color: #5411ff;
+  @apply bg-[#F1F1F1] dark:bg-black 
+
+    
+}
+p{
+    @apply text-VdarkBlue dark:text-white
+}
+/* .textarea:focus{
+    outline: 2px solid #5411ff;
+} */
+/* for general styling */
+.icons{
+    @apply bg-gray-200 rounded-[50%] text-VdarkBlue dark:bg-darktextareabg dark:text-white text-[16px] w-[30px] h-[30px] flex justify-center items-center
+}
+.button{
+   @apply bg-Blue text-white w-[180px] h-[50px] flex justify-center items-center text-[16px] font-semibold rounded-[5px]
+}
+.outline-button{
+   @apply border-Blue border-[2px] text-gray-600 w-[180px] h-[50px] flex justify-center items-center text-[16px] font-semibold rounded
+
+}
+.textarea{
+    @apply w-[95%] h-[250px] tablet:h-[220px] laptop:w-[50%] laptop:h-[350px] overflow-y-auto p-3 rounded resize-none dark:bg-darktextareabg laptop:p-4 bg-white outline-dashed outline-Blue text-gray-500;
+    
+}
+.textarea-2{
+    @apply w-[95%] h-[250px] tablet:h-[220px] laptop:w-[50%] laptop:h-[350px] overflow-y-auto p-3 rounded resize-none dark:bg-darktextareabg laptop:p-4  bg-Blue text-white font-semibold laptop:outline-[2px] laptop:outline-blue-400;
+    
+}
+
+.textarea-2::placeholder{
+    color: white;
+}

@@ -91,8 +91,8 @@ const [disabledText , setdisabledText] = useState(true)
           // Create FormData object and append the file
           const formData = new FormData();
           formData.append('files', fileContent, 'compressedimage.png');
-          formData.append('qlty', '75')
-          formData.append('force', 'true')
+          formData.append('qlty', 75)
+          formData.append('force', true)
           
           //  compress the image
           const res = await axios.post(compressionUrl, formData, {
@@ -130,7 +130,7 @@ const [disabledText , setdisabledText] = useState(true)
           setLoading(true)
           setLoading(false)
           setimageHasBeenScanned(false)
-          setImageScanError('Something went wrong')          
+          setImageScanError('Image is more than 1 mb')          
           console.log(error.mesage, 'it did not work bro')
         }
        } else{

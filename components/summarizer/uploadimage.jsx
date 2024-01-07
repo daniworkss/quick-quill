@@ -1,16 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
-'use client'
 import { useRef, useState } from "react"
 import axios from "axios"
 import Beatloader from "@/components/loaders/beat-loader"
 import { Summary } from "@/lib/apiOptions"
-import { compressionUrl, readImage } from "@/lib/compression"
+import { compressionUrl} from "@/lib/compression"
+import https from 'https'
 
 const apiUrl = process.env.NEXT_PUBLIC_IMAGE_API_URL
 const apikey = process.env.NEXT_PUBLIC_IMAGE_API_KEY  
-
-
-
 
 export default function UploadImage(){
   const [imageDisplayed, setImageDisplayed]= useState()
@@ -59,7 +56,11 @@ const [disabledText , setdisabledText] = useState(true)
     scanOptions.append('language', 'eng')
     scanOptions.append('OCREngine', 2)
     scanOptions.append('scale', true)
-
+   
+    // ignore ssl erros because of http api request
+    const agent = new https.Agent({
+      rejectUnauthorized: false
+    })
 
     async function HandleScanning(){
        setLoading(true)
@@ -95,8 +96,7 @@ const [disabledText , setdisabledText] = useState(true)
           formData.append('force', true)
           
           //  compress the image
-          const res = await axios.post(compressionUrl, formData, {
-          })   
+          const res = await axios.post(compressionUrl, formData, {httpAgent: agent })   
           console.log(res.data);
           const compressedImage = res.data.dest
           // new formdata for compressed image
@@ -123,7 +123,7 @@ const [disabledText , setdisabledText] = useState(true)
            } catch(error){
             setLoading(false)
             setimageHasBeenScanned(false)
-            setImageScanError('image is more than 1 mb')  
+            setImageScanError('Image is more than 1 mb')  
             console.log(error, 'it did not work')        
            }
         } catch (error) {

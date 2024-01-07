@@ -57,12 +57,10 @@ const [disabledText , setdisabledText] = useState(true)
     scanOptions.append('OCREngine', 2)
     scanOptions.append('scale', true)
    
-    // ignore ssl erros because of http api request
-    const agent = new https.Agent({
-      rejectUnauthorized: false
-    })
+   
 
     async function HandleScanning(){
+       setImageScanError(' ') 
        setLoading(true)
         //making sure the image is 1mb. if it is not we cannot scan the image
        if (imageDisplayed.size <= 1048576){
@@ -76,18 +74,16 @@ const [disabledText , setdisabledText] = useState(true)
            setLoading(false)
            setimageHasBeenScanned(true)
            setnoErrorMessage(true)
-           setImageScanError(' ') 
            setextractedText(response.data.ParsedResults[0].ParsedText, 'it worked')
          } catch (error) {
-           setLoading(true)
            setLoading(false)
            setimageHasBeenScanned(false)
            setImageScanError('Something went wrong')          
            console.log(error.mesage, 'it did not work bro')
         } 
-       } else if (imageDisplayed.size > 1048576) {
-        console.log('image is greater than 1mb')
-        try {
+       } else { //compress image
+         console.log('image is greater than 1mb')
+         
           const fileContent = imageDisplayed;
           // Create FormData object and append the file
           const formData = new FormData();
@@ -96,7 +92,7 @@ const [disabledText , setdisabledText] = useState(true)
           formData.append('force', true)
           
           //  compress the image
-          const res = await axios.post(compressionUrl, formData, {httpAgent: agent })   
+          const res = await axios.post(compressionUrl, formData, )   
           console.log(res.data);
           const compressedImage = res.data.dest
           // new formdata for compressed image
@@ -106,40 +102,33 @@ const [disabledText , setdisabledText] = useState(true)
           newScanOptions.append('language', 'eng')
           newScanOptions.append('OCREngine', 2)
           newScanOptions.append('scale', true)
-          
-           try{
-             console.log('scanning')     
-             const response = await axios.post(apiUrl, newScanOptions, {
-               headers: {
-                 "Content-Type": 'multipart/form-data'
-               }
-             })
-             console.log(response)
-             setLoading(false)
-             setimageHasBeenScanned(true)
-             setnoErrorMessage(true)
-             setImageScanError(' ') 
-             setextractedText(response.data.ParsedResults[0].ParsedText, 'it worked')
-           } catch(error){
+
+            
+          if (res.data.dest_size <= 1048576 ){  // scan if image is 1mb after compression
+            console.log('scanning')   
+            const response = await axios.post(apiUrl, newScanOptions, {
+              headers: {
+                "Content-Type": 'multipart/form-data'
+              }
+            })
+            console.log(response)
+              setLoading(false)
+              setimageHasBeenScanned(true)
+              setnoErrorMessage(true)
+              setImageScanError(' ') 
+              setextractedText(response.data.ParsedResults[0].ParsedText, 'it worked')
+          } else {
+            setLoading(true)
             setLoading(false)
             setimageHasBeenScanned(false)
-            setImageScanError('Image is more than 1 mb')  
-            console.log(error, 'it did not work')        
-           }
-        } catch (error) {
-          setLoading(true)
-          setLoading(false)
-          setimageHasBeenScanned(false)
-          setImageScanError('Image is more than 1 mb')          
-          console.log(error.mesage, 'it did not work bro')
-        }
-       } else{
-        setLoading(true)
-        setLoading(false)
-        setimageHasBeenScanned(false)
-        setImageScanError('Something went wrong')          
-        console.log(error.mesage, 'it did not work bro')
-       }
+            setImageScanError('Image is more than 1 mb')          
+            console.log('it did not work bro')
+          }
+           
+        
+         
+        
+       } 
       
     }
 

@@ -3,39 +3,52 @@
 import axios from "axios"
 import { useState } from "react"
 export default function Imagecompressor(){
+  const [image, setImage] = useState()
   const [imageDisplayed, setImageDisplayed] = useState('')
-  const defautImage = '/queen-studioflyer-2.jpg'
-  const url = 'http://api.resmush.it/?qlty=80'
+  const defautImage = '/second.jpg'
+  
 
-  // Function to read file content asynchronously      
-  async function readFile(defautImage) {
-    const response = await fetch(defautImage);
-    const data = await response.blob();
-    console.log (data)
-    return data;
+  function handleimageupload(e){
+    const image = e.target.files[0]
+    if (image){
+      console.log(image.size)
+      setImage(image)
+    }
   }
 
-  async function CompressImage(){
-      try {
-        const fileContent = await readFile(defautImage);
+  // const blobIMage = new Blob([defautImage], { type: defautImage.type });
+  const formData = new FormData()
+  formData.append('file', image)
+  formData.append('type', 'file')
+  formData.append('compression', 'intelligent' )
+  formData.append('cmyktorgb', '1');
+  formData.append('keep_exif', '0');
+  formData.append('webp', '0');
+  formData.append('max_width', '0');
+  formData.append('max_height', '0');
 
-        // Create FormData object and append the file
-        const formData = new FormData();
-        formData.append('files', new File([fileContent], 'compressedimage.jpg',));
-
-        const res = await axios.get(url, formData)   
-        console.log(res.data);
-        setImageDisplayed(res.data.src)
-        
-      } catch (error) {
-        console.error('Error:', error);
+ const apiKey = process.env.NEXT_PUBLIC_COMPRESSION_KEY 
+  
+ async function CompressImage (){
+    console.log('click')
+    const sendInfo = await axios.post('https://api.megaoptim.com/v1/optimize', formData ,{
+      headers:{
+        'Content-Type':'multipart/form-data',
+         'X-API-KEY' : apiKey
       }
-    };
-
-
+    })
+    console.log(sendInfo )
+    const imageProcessed = await axios.post(`https://api.megaoptim.com/v1/optimize/${sendInfo.data.process_id}/result`, {
+      headers:{
+        'X-API-KEY' : apiKey
+      }
+    })
+    console.log(imageProcessed)
+  }
   return (
     <div>
       <img src={defautImage} alt='image-1' />
+      <input type="file" accept="image" onChange={handleimageupload}></input>
       <img src={imageDisplayed} alt="image Uploaded" className="bg-red object-fill " />    
 
       <button className="button" onClick={CompressImage}> compress image</button>

@@ -11,7 +11,7 @@ module.exports = {
       screens :{
         "mobile": "375px",
         "tablet": "768px",
-        "laptop": "1200px",
+        "laptop": "1000px",
         "desktop": "1400px"
        },
        colors:{

@@ -3,19 +3,20 @@ import { useRef, useState } from "react"
 import axios from "axios"
 import Beatloader from "@/components/loaders/beat-loader"
 import { Summary } from "@/lib/apiOptions"
-import { compressionUrl} from "@/lib/compression"
-import https from 'https'
-
-const apiUrl = process.env.NEXT_PUBLIC_IMAGE_API_URL
-const apikey = process.env.NEXT_PUBLIC_IMAGE_API_KEY  
+import { imageScanUrl,imageScanApikey } from "@/config/Api-urls-and-keys"
+import Link from "next/link"
+import Image from "next/image"
 
 export default function UploadImage(){
+
   const [imageDisplayed, setImageDisplayed]= useState()
   const [hasNotUploadedImage, sethasNotUploadedImage] = useState(true)
   const [Loading, setLoading] = useState(false)
   
+  
   //this is for image size error  and api error message to display to users either bad request or image size limit
-  const [imageScanError, setImageScanError] = useState()
+  const [imageScanError, setImageScanError] = useState(false)
+ 
 
   //  to display Loading errors to users 
   const [noErrorMessage, setnoErrorMessage]= useState()   
@@ -26,6 +27,8 @@ export default function UploadImage(){
   //  this is for when image has been scanned. to display 2 text areas for corrections if the image was not properly scanned
   const [imageHasBeenScanned, setimageHasBeenScanned] = useState()
   const imageInputRef = useRef()
+  // image scan error
+  const [imageScanErrorMessage, setImageScanErrorMessage] = useState('')
 
 // this is to display extracted text  and summarized text to the users
  const [extractedText, setextractedText] = useState()
@@ -45,28 +48,29 @@ const [disabledText , setdisabledText] = useState(true)
         console.log(image.size)
         if (image){
           sethasNotUploadedImage(false)
+          // reset error messages for image scan 
+          setImageScanError(false) 
+          setImageScanErrorMessage(' ')
           setImageDisplayed(image)
         }    
     }
 
     //  this is to scan image for text using the api
     const scanOptions = new FormData()
-    scanOptions.append('apikey', apikey)
+    scanOptions.append('apikey', imageScanApikey)
     scanOptions.append('file', imageDisplayed)
     scanOptions.append('language', 'eng')
     scanOptions.append('OCREngine', 2)
     scanOptions.append('scale', true)
    
-   
-
     async function HandleScanning(){
-       setImageScanError(' ') 
-       setLoading(true)
+      setImageScanError(false)          
+      setLoading(true)
         //making sure the image is 1mb. if it is not we cannot scan the image
        if (imageDisplayed.size <= 1048576){
          try {  
-           console.log('scanning')     
-           const response = await axios.post(apiUrl, scanOptions, {
+          // scan image 
+           const response = await axios.post(imageScanUrl, scanOptions, {
              headers: {
                "Content-Type": 'multipart/form-data'
              }
@@ -74,60 +78,16 @@ const [disabledText , setdisabledText] = useState(true)
            setLoading(false)
            setimageHasBeenScanned(true)
            setnoErrorMessage(true)
+          //  extracted text
            setextractedText(response.data.ParsedResults[0].ParsedText, 'it worked')
          } catch (error) {
            setLoading(false)
            setimageHasBeenScanned(false)
-           setImageScanError('Something went wrong')          
-           console.log(error.mesage, 'it did not work bro')
+           setImageScanErrorMessage('Something went wrong please try again later')
         } 
-       } else { //compress image
-         console.log('image is greater than 1mb')
-         
-          const fileContent = imageDisplayed;
-          // Create FormData object and append the file
-          const formData = new FormData();
-          formData.append('files', fileContent, 'compressedimage.png');
-          formData.append('qlty', 75)
-          formData.append('force', true)
-          
-          //  compress the image
-          const res = await axios.post(compressionUrl, formData, )   
-          console.log(res.data);
-          const compressedImage = res.data.dest
-          // new formdata for compressed image
-          const newScanOptions = new FormData()
-          newScanOptions.append('apikey', apikey)
-          newScanOptions.append('url', compressedImage)
-          newScanOptions.append('language', 'eng')
-          newScanOptions.append('OCREngine', 2)
-          newScanOptions.append('scale', true)
-
-            
-          if (res.data.dest_size <= 1048576 ){  // scan if image is 1mb after compression
-            console.log('scanning')   
-            const response = await axios.post(apiUrl, newScanOptions, {
-              headers: {
-                "Content-Type": 'multipart/form-data'
-              }
-            })
-            console.log(response)
-              setLoading(false)
-              setimageHasBeenScanned(true)
-              setnoErrorMessage(true)
-              setImageScanError(' ') 
-              setextractedText(response.data.ParsedResults[0].ParsedText, 'it worked')
-          } else {
-            setLoading(true)
-            setLoading(false)
-            setimageHasBeenScanned(false)
-            setImageScanError('Image is more than 1 mb')          
-            console.log('it did not work bro')
-          }
-           
-        
-         
-        
+       } else { //compress image feature will be added later 
+          setLoading(false)
+          setImageScanError(true)          
        } 
       
     }
@@ -139,12 +99,14 @@ const [disabledText , setdisabledText] = useState(true)
 
     // to summarize text
     async function HandleSummary(){  
+      // to ensure that character is more than 250 to meet summary condition
       if (extractedText.length > 250 ){
           try {
             setnoErrorMessage(true)
             setdisplayErrorMessage(false)
             setsummarizedText(' ')
             setLoading(true)
+            // summarize
             const summarize = await Summary.summarize({text: extractedText, format: 'paragraph', extractiveness: 'medium', temperature: 0.1, additionalCommand:"Generate a summary _" })
             setsummarizedText(summarize.summary)
             setLoading(false)
@@ -162,11 +124,10 @@ const [disabledText , setdisabledText] = useState(true)
       
     }
   return (
-    
-          <div className="w-full flex justify-center" style={{maxWidth:'1200px', margin: '0px auto'}}>
+          <div className="w-full flex justify-center" style={{maxWidth:'1300px', margin: '0px auto'}}>
           {
             hasNotUploadedImage ?( 
-             <div className=" flex flex-col  items-center w-[95%] bg-white rounded h-[400px] justify-center gap-[1rem]">
+             <div className=" flex flex-col  items-center w-[95%] bg-white rounded h-[450px] justify-center space-y-[1rem]">
             {/* hidden input element connected to the <button></button> element to upload images */}
               <input type="file"
                 accept="image/*" 
@@ -176,30 +137,28 @@ const [disabledText , setdisabledText] = useState(true)
                 className="hidden"
               />
             {/* this is the custom button that will be displayed to users */}
-                <button type="button"
-                  onClick={handleButtonClick} 
-                  className="button flex items-center justify-between gap-2 cursor-pointer"
-                > 
-                  <span className="mt-[3px]">
-                    <ion-icon name="cloud-upload"></ion-icon>
-                  </span> 
-                    Upload Image
-                </button>
+            <button href={'/summarizer/upload-Image'} className="button hover:bg-Blue hover:text-white  flex space-x-2 items-center cursor-pointer" onClick={handleButtonClick}> 
+              <span className="mt-[3px] mr-2  ">
+                <Image src={'/icons/upload-icon.svg'} alt="upload-icon" width={25} height={25} objectFit="contain"/>
+              </span> 
+              Upload Image
+            </button>
             <div>
-            <p className="text-gray-400 text-[14px] text-center">Image upload limit <strong className="">1 mb</strong></p>
-            <p className="text-gray-400 text-[14px]">Supported Images <strong className="text-Blue">jpg, png , Gif</strong> </p>
+              <p className="text-gray-400 text-[14px] text-center">Image upload limit <strong className="">1 mb</strong></p>
+              <p className="text-gray-400 text-[14px]">Supported Images <strong className="text-Blue">jpg, png , Gif</strong> </p>
             </div>
             
           </div>
             ):( !imageHasBeenScanned ?(
-            <div className="flex flex-col pb-3  items-center w-[95%] bg-white rounded h-[400px] justify-center gap-[0.5rem]">
+            <div className="flex flex-col pb-6  items-center w-[95%] bg-white rounded h-[450px] justify-center space-y-[0.5rem]">
                 <div className=" h-[20px] mt-4">
-                <p className='text-[12px] text-red-500 '>{imageScanError}</p>
+                <p className={`text-[12px] text-red-500 font-semibold ${imageScanError === false ? 'hidden': 'block'}`}>Image is larger than 1 mb <a href="https://tinypng.com/" target="_blank" className="font-bold underline text-Blue">Compress here</a></p>
+                <p className={`text-[12px] text-red-500 font-semibold`}>{imageScanErrorMessage}</p>
                 </div>
               <div className="w-[240px] h-[280px]  flex justify-center items-center overflow-hidden">
                 <img src={URL.createObjectURL(imageDisplayed)} alt="image Uploaded" className="bg-red object-fill " />    
               </div>
-              <button className="button" onClick={HandleScanning}>
+              <button className="button hover:text-Blue hover:bg-Blue" onClick={HandleScanning}>
                 {
                   Loading ? <Beatloader/> : "Scan Image"
                 }
@@ -213,13 +172,13 @@ const [disabledText , setdisabledText] = useState(true)
                 <p className={`text-center font-semibold text-[14px] pb-3 laptop:pb-8 ${displayErrorMessage ? 'text-red-500' : 'text-Blue'} `} >{ noErrorMessage ? "Check for spelling errors" : displayErrorMessage}</p>
 
                 </div>
-                <div className="flex flex-col  gap-2 items-center w-full relative" style={{maxWidth: '1200px', margin: '0px auto'}} >
-                 <div className="flex flex-col items-center laptop:flex-row w-full gap-[3rem]">
+                <div className="flex flex-col  space-y-2 items-center w-full relative" style={{maxWidth: '1200px', margin: '0px auto'}} >
+                 <div className="flex flex-col items-center laptop:flex-row w-full space-y-[3rem] laptop:space-x-[3rem] laptop:space-y-0  ">
                  <textarea  name="defaultext"  className="textarea " value={extractedText} onChange={handleTextArea}  />
                   <textarea name="summarizedtext" className="textarea-2"  value={summarizedtext} placeholder="Summarized Text Will Be Here" disabled={disabledText} ></textarea>
                  </div>
                 <div className="bottom-0 w-full flex justify-center bg-white  h-[60px] laptop:mt-4 items-center">
-                <button className="button" onClick={HandleSummary}> {
+                <button className="button hover:bg-Blue hover:text-white" onClick={HandleSummary}> {
                   Loading ? <Beatloader/> : "Summarize"
                 }</button>
                 </div>

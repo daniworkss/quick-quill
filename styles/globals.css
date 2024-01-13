@@ -7,26 +7,29 @@
     padding: 0px;
     box-sizing: border-box;
 }
+html{
+    overflow-x: hidden;
+   scroll-behavior: smooth;
+}
 body{
-    height: 300vh;
+    overflow-x: hidden;
     /* background-color: #F1F1F1; */
-  background-color: #5411ff;
-  @apply bg-[#F1F1F1] dark:bg-black 
+   @apply bg-[#F1F1F1] 
 
     
 }
 p{
     @apply text-VdarkBlue dark:text-white
 }
-/* .textarea:focus{
-    outline: 2px solid #5411ff;
-} */
+input:focus,textarea:focus{
+    outline: none;
+}
 /* for general styling */
 .icons{
     @apply bg-gray-200 rounded-[50%] text-VdarkBlue dark:bg-darktextareabg dark:text-white text-[16px] w-[30px] h-[30px] flex justify-center items-center
 }
 .button{
-   @apply bg-Blue text-white w-[180px] h-[50px] flex justify-center items-center text-[16px] font-semibold rounded-[5px]
+   @apply bg-Blue text-white w-[180px] h-[50px] flex justify-center items-center text-[16px] font-semibold rounded-[5px] hover:bg-white hover:text-Blue transition-colors duration-[.2s]  hover:border-Blue hover:border-[2px]
 }
 .outline-button{
    @apply border-Blue border-[2px] text-gray-600 w-[180px] h-[50px] flex justify-center items-center text-[16px] font-semibold rounded
@@ -43,4 +46,44 @@ p{
 
 .textarea-2::placeholder{
     color: white;
+}
+.radius-box{
+    border-radius: 0px 50px 50px 0px;
+}
+.radius-box-2{
+    border-radius: 0px 0px 50px 0px;
+
+}
+.radius-box-3{
+    border-radius: 0px 50px 0px 0px;
+
+  
+}
+/* for responsive images and design */
+.hero-section{
+    background-image: url('/images/mobile-hero-image.jpg');
+    background-size: cover;
+    background-position: -120px 0px;
+    background-repeat: no-repeat;
+    background-color: #9193f5;
+}
+@media screen and (min-width: 768px) {
+    .hero-section{
+        background-position: 50px 0px;
+        background-size: cover;
+        
+    }
+}
+@media screen and (min-width: 1000px) {
+    .hero-section{
+        background-image: none;
+        background-color: inherit;
+    }
+    .radius-box{
+        border-radius: 0px 100px 0px 100px ;
+    }
+    .radius-box-2{
+        border-radius: 0px 0px 0px 0px;
+    
+    }
 }

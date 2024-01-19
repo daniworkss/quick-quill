@@ -6,6 +6,7 @@ import { Summary } from "@/lib/apiOptions"
 import { imageScanUrl,imageScanApikey } from "@/config/Api-urls-and-keys"
 import Link from "next/link"
 import Image from "next/image"
+import Typewriter from "../type-writer"
 
 export default function UploadImage(){
 
@@ -32,10 +33,8 @@ export default function UploadImage(){
 
 // this is to display extracted text  and summarized text to the users
  const [extractedText, setextractedText] = useState()
- const [summarizedtext, setsummarizedText] = useState()
+ const [summarizedtext, setsummarizedText] = useState('')
 
-// to handle disabled text area 
-const [disabledText , setdisabledText] = useState(true)
 
   // to access hidden input element with custom button using the image input reference
   const handleButtonClick= ()=>{
@@ -43,7 +42,7 @@ const [disabledText , setdisabledText] = useState(true)
   }
 
 // to  handle the component boolean and also to get images
-    const handleImageUpload = (e) => {
+   const handleImageUpload = (e) => {
         const image = e.target.files[0]
         console.log(image.size)
         if (image){
@@ -110,7 +109,7 @@ const [disabledText , setdisabledText] = useState(true)
             const summarize = await Summary.summarize({text: extractedText, format: 'paragraph', extractiveness: 'medium', temperature: 0.1, additionalCommand:"Generate a summary _" })
             setsummarizedText(summarize.summary)
             setLoading(false)
-            setdisabledText(false)
+      
             
           } catch (error) {
            setdisplayErrorMessage('Something went wrong. Please try again later')
@@ -137,7 +136,7 @@ const [disabledText , setdisabledText] = useState(true)
                 className="hidden"
               />
             {/* this is the custom button that will be displayed to users */}
-            <button href={'/summarizer/upload-Image'} className="button hover:bg-Blue hover:text-white  flex space-x-2 items-center cursor-pointer" onClick={handleButtonClick}> 
+            <button href={'/summarizer/upload-Image'} className="button bg-Blue text-white  flex space-x-2 items-center cursor-pointer outline-none" onClick={handleButtonClick}> 
               <span className="mt-[3px] mr-2  ">
                 <Image src={'/icons/upload-icon.svg'} alt="upload-icon" width={25} height={25} objectFit="contain"/>
               </span> 
@@ -158,7 +157,7 @@ const [disabledText , setdisabledText] = useState(true)
               <div className="w-[240px] h-[280px]  flex justify-center items-center overflow-hidden">
                 <img src={URL.createObjectURL(imageDisplayed)} alt="image Uploaded" className="bg-red object-fill " />    
               </div>
-              <button className="button hover:text-Blue hover:bg-Blue" onClick={HandleScanning}>
+              <button className="button" onClick={HandleScanning}>
                 {
                   Loading ? <Beatloader/> : "Scan Image"
                 }
@@ -174,8 +173,11 @@ const [disabledText , setdisabledText] = useState(true)
                 </div>
                 <div className="flex flex-col  space-y-2 items-center w-full relative" style={{maxWidth: '1200px', margin: '0px auto'}} >
                  <div className="flex flex-col items-center laptop:flex-row w-full space-y-[3rem] laptop:space-x-[3rem] laptop:space-y-0  ">
-                 <textarea  name="defaultext"  className="textarea " value={extractedText} onChange={handleTextArea}  />
-                  <textarea name="summarizedtext" className="textarea-2"  value={summarizedtext} placeholder="Summarized Text Will Be Here" disabled={disabledText} ></textarea>
+                  <textarea  name="defaultext"  className="textarea " value={extractedText} onChange={handleTextArea}  />
+                  {/* typing response */}
+                 <div className="textarea-2">
+                   {summarizedtext === '' ?'Summarized Text Will Be Here': <Typewriter text={summarizedtext} speed={30}></Typewriter>}
+                 </div>
                  </div>
                 <div className="bottom-0 w-full flex justify-center bg-white  h-[60px] laptop:mt-4 items-center">
                 <button className="button hover:bg-Blue hover:text-white" onClick={HandleSummary}> {

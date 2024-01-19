@@ -10,8 +10,8 @@ module.exports = {
     extend: {
       screens :{
         "mobile": "375px",
-        "tablet": "768px",
-        "laptop": "1000px",
+        "tablet": "700px",
+        "laptop": "1200px",
         "desktop": "1400px"
        },
        colors:{

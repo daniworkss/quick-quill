@@ -7,7 +7,7 @@ export default function ToggleMenu(){
  const {pathname} = router
  const activelink = 'text-white bg-Blue p-3 font-bold rounded-[5px] pl-5 pr-5'
   return (
-    <div className="bg-white dark:bg-black h-[70px] pt-3 flex items-center mb-[1rem]" style={{maxWidth:'1300px',}}>
+    <div className="bg-white dark:bg-black h-[70px] pt-3 flex items-center mb-[1rem] justify-center" >
     <section className='user-task-selection flex w-full justify-center gap-[15px] pb-[12px]  items-center '>
         <div className='cursor-pointer '>
           <Link href={'/summarizer'} className={pathname.includes('/summarizer') ? activelink :'text-VdarkBlue p-3 font-bold bg-inherit'}>Summarize</Link>

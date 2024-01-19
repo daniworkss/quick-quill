@@ -9,14 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.8.2",
     "axios": "^1.6.5",
     "cohere-ai": "^7.6.2",
     "formidable": "^3.5.1",
+    "framer-motion": "^10.18.0",
     "next": "14.0.3",
     "next-images": "^1.8.5",
     "nodemailer": "^6.9.8",
     "react": "^18",
     "react-dom": "^18",
+    "react-intersection-observer": "^9.5.3",
     "react-spinners": "^0.13.8",
     "scroll-lock": "^2.1.5"
   },

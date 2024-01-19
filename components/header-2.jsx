@@ -33,14 +33,14 @@ export default function Header2() {
           </div>
           {/* links */}
           <ul className={`absolute laptop:flex bg-white top-0 right-0 h-screen w-[60%] tablet:w-[50%] laptop:w-auto laptop:flex-row  laptop:bg-inherit laptop:space-x-[2rem] laptop:space-y-0 flex-col  space-y-[2rem] pl-[2rem] pt-[15rem] laptop:p-0  laptop:static text-[16px] tablet:text-[18px] laptop:text-[16px] laptop:font-semibold tablet:pt-[20rem] z-10  laptop:items-center laptop:h-auto laptop:text-black laptop:opacity-[100%]   ${openMenu ? ' opacity-[0%]  transition-all duration-[.2s] ease-out laptop:transition-none hidden': ' transition-all duration-[.2s] ease-in laptop:transition-none flex opacity-[100%]'}`}>
-            <Link href={''} onClick={handleMenuOptionClick}>Home</Link>
-            <Link href={''} onClick={handleMenuOptionClick}> About </Link>
-            <Link href={''} onClick={handleMenuOptionClick} className=''>Features</Link>
-            <Link href={''} onClick={handleMenuOptionClick} className=''>FAQ's</Link>
-            <Link href={''} onClick={handleMenuOptionClick} className='text-Blue font-bold laptop:hidden laptop:rounded-[5px] laptop:pl-4 laptop:pr-4'>Contact Us</Link>
+            <Link href={'/'} onClick={handleMenuOptionClick}>Home</Link>
+            <Link href={'/#about'} onClick={handleMenuOptionClick}> About </Link>
+            <Link href={'/#features'} onClick={handleMenuOptionClick} className=''>Features</Link>
+            <Link href={'/#faq'} onClick={handleMenuOptionClick} className=''>FAQ's</Link>
+            <Link href={'/contact-us'} onClick={handleMenuOptionClick} className='text-Blue font-bold laptop:hidden laptop:rounded-[5px] laptop:pl-4 laptop:pr-4'>Contact Us</Link>
           </ul>
           <div className='hidden laptop:flex w-[180px] justify-center'>
-          <Link href={''} onClick={handleMenuOptionClick} className='text-white text-center w-[150px] laptop:block font-bold laptop:bg-Blue laptop:p-3 laptop:rounded-[5px] laptop:pl-6 laptop:pr-6 hover:bg-inherit hover:text-Blue hover:border-Blue hover:border-[2px]'>Contact Us</Link>
+          <Link href={'/contact-us'} onClick={handleMenuOptionClick} className='text-white text-center w-[150px] laptop:block font-bold laptop:bg-Blue laptop:p-3 laptop:rounded-[5px] laptop:pl-6 laptop:pr-6 hover:bg-inherit hover:text-Blue hover:border-Blue hover:border-[2px]'>Contact Us</Link>
           </div>   
 
           {/* for shadow-background */}

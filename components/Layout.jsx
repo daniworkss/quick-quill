@@ -4,8 +4,8 @@ import Header2 from "./header-2"
 import Footer from "./footer"
 export default function Layout({children}){
   return (
-   <div className="">
-    <div className="mb-2">
+   <div className="w-full">
+    <div className="mb-2 ">
     <Header2/>
     </div>
     <ToggleMenu/>

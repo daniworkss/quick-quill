@@ -10,9 +10,11 @@
 html{
     overflow-x: hidden;
    scroll-behavior: smooth;
+
 }
 body{
     overflow-x: hidden;
+    overscroll-behavior: none;
     /* background-color: #F1F1F1; */
    @apply bg-[#F1F1F1] 
 
@@ -29,18 +31,18 @@ input:focus,textarea:focus{
     @apply bg-gray-200 rounded-[50%] text-VdarkBlue dark:bg-darktextareabg dark:text-white text-[16px] w-[30px] h-[30px] flex justify-center items-center
 }
 .button{
-   @apply bg-Blue text-white w-[180px] h-[50px] flex justify-center items-center text-[16px] font-semibold rounded-[5px] hover:bg-white hover:text-Blue transition-colors duration-[.2s]  hover:border-Blue hover:border-[2px]
+   @apply bg-Blue text-white w-[180px] h-[50px] flex justify-center items-center text-[16px] font-semibold rounded-[5px] transition-colors duration-[.2s]   hover:text-white
 }
 .outline-button{
    @apply border-Blue border-[2px] text-gray-600 w-[180px] h-[50px] flex justify-center items-center text-[16px] font-semibold rounded
 
 }
 .textarea{
-    @apply w-[95%] h-[250px] tablet:h-[220px] laptop:w-[50%] laptop:h-[350px] overflow-y-auto p-3 rounded resize-none dark:bg-darktextareabg laptop:p-4 bg-white outline-dashed outline-Blue text-gray-500;
+    @apply w-[95%] h-[250px]  tablet:w-[80%] tablet:h-[300px] laptop:w-[50%] laptop:h-[350px] overflow-y-auto p-3 rounded resize-none dark:bg-darktextareabg laptop:p-4 bg-white outline-dashed outline-Blue text-gray-500;
     
 }
 .textarea-2{
-    @apply w-[95%] h-[250px] tablet:h-[220px] laptop:w-[50%] laptop:h-[350px] overflow-y-auto p-3 rounded resize-none dark:bg-darktextareabg laptop:p-4  bg-Blue text-white font-semibold laptop:outline-[2px] laptop:outline-blue-400;
+    @apply w-[95%] h-[250px] tablet:w-[80%] tablet:h-[300px] laptop:w-[50%] laptop:h-[350px]  overflow-y-auto p-3 rounded resize-none dark:bg-darktextareabg laptop:p-4  bg-Blue text-white font-semibold laptop:outline-[2px] laptop:outline-blue-400;
     
 }
 
@@ -59,6 +61,10 @@ input:focus,textarea:focus{
 
   
 }
+iframe{
+    width: 350px;
+    height: 250px;
+}
 /* for responsive images and design */
 .hero-section{
     background-image: url('/images/mobile-hero-image.jpg');
@@ -68,13 +74,24 @@ input:focus,textarea:focus{
     background-color: #9193f5;
 }
 @media screen and (min-width: 768px) {
+    
     .hero-section{
         background-position: 50px 0px;
         background-size: cover;
         
     }
+
+    iframe{
+        height: 300px;
+        width: 100%;
+        
+    }
 }
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1200px) {
+    html{
+      overscroll-behavior: none;
+
+    }
     .hero-section{
         background-image: none;
         background-color: inherit;
@@ -85,5 +102,9 @@ input:focus,textarea:focus{
     .radius-box-2{
         border-radius: 0px 0px 0px 0px;
     
+    }
+    iframe{
+        height: 1000px;
+        width: 600px;
     }
 }

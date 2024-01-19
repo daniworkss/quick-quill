@@ -26,8 +26,8 @@ export default function Home() {
         !loading 
         ?
          (<Loadanimation/>)
-        :
-        <div className="container max-w-[1300px]">
+        : 
+        <div className="container max-w-[2000px]">
         <Header1/>
         <HeroSection/>
         <section id='about'className="pt-[4rem] laptop:pb-[4rem] ">
@@ -44,16 +44,16 @@ export default function Home() {
         </div>
           {/* homepage-footer */}
         <div className="mt-[3rem]">
-            <div className="bg-Blue  pl-4   radius-box-3 pb-[2rem] laptop:pb-[3rem] pt-[3rem]  laptop:pt-[4rem] space-y-[2rem] laptop:space-y-0 laptop:flex justify-around laptop:pl-[5rem] laptop:pr-[5rem] laptop:items-center">
+            <div className="bg-Blue  pl-4   radius-box-3 pb-[2rem] laptop:pb-[3rem] pt-[3rem]  laptop:pt-[4rem] space-y-[2rem] tablet:space-y-0 laptop:space-y-0 tablet:flex  justify-around laptop:pl-[5rem] laptop:pr-[5rem] laptop:items-center">
               <h1 className="logo text-white text-[36px] tablet:text-[36px] laptop:text-center laptop:text-[42px]">Quick<strong className=''>Quill</strong></h1>     
-              <div className="flex flex-col laptop:flex-row w-full justify-center laptop:space-x-[4rem] space-y-[2rem] laptop:space-y-0 ">
+            <div className="flex gap-[2rem]">
               <div> 
                 <h2 className="text-white font-bold text-[20px] mb-2">Company</h2>
                   <ul className="flex flex-col text-white pl-0 text-[16px] laptop:text-[18px] space-y-[1rem] text-left">
                   <Link href={'/'} >Home</Link>
-                  <Link href={''} > About </Link>
-                  <Link href={''}  className=''>Features</Link>
-                  <Link href={''}  className=''>FAQ's</Link>
+                  <Link href={'#about'} > About </Link>
+                  <Link href={'#feature'}  className=''>Features</Link>
+                  <Link href={'#faq'}  className=''>FAQ's</Link>
                   </ul>
               </div>
 
@@ -61,14 +61,14 @@ export default function Home() {
                   <h2 className="text-white font-bold text-[20px] mb-2">Terms & Policies</h2>
                   <ul className="flex flex-col text-white pl-0 text-[16px] laptop:text-[18px] space-y-[1rem] text-left">
                   <Link href={'/'} >Terms</Link>
-                  <Link href={''} > Policies</Link>
+                  <Link href={'/'} > Policies</Link>
                   </ul>
               </div>
             </div>
 
               <div>
                 <div className=' flex laptop:w-[200px] w-full  mt-[2rem]'>
-                <Link href={''}  className='w-[150px] laptop:w-[200px] bg-white text-Blue p-3 rounded-[5px] text-center font-semibold laptop:hover:bg-Blue laptop:hover:text-white laptop:transition-colors laptop:duration-[.2s] laptop:hover:border-white laptop:hover:border-[1px]'>Contact Us</Link>
+                <Link href={'/contact-us'}  className='w-[150px] laptop:w-[200px] bg-white text-Blue p-3 rounded-[5px] text-center font-semibold laptop:hover:bg-Blue laptop:hover:text-white laptop:transition-colors laptop:duration-[.2s] laptop:hover:border-white laptop:hover:border-[1px]'>Contact Us</Link>
               </div> 
               </div>
 
@@ -79,9 +79,8 @@ export default function Home() {
         </div>
         
       </div>
-
-      }
-
+}
+     
     </div>
   )
 }

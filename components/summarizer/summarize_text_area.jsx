@@ -1,6 +1,7 @@
 import { useState } from "react"
 import {Summary} from "@/lib/apiOptions"
 import Beatloader from "../loaders/beat-loader"
+import Typewriter from "../type-writer"
 export default function SummarizeTextArea(){
     const [isDisabled, setisDisabled] = useState(true)
     const [defaultText, setDefaultText] = useState('')
@@ -11,12 +12,14 @@ export default function SummarizeTextArea(){
     async function summarizeText(){
       if (defaultText.length >= 250){
         try { 
-          setErrormessage('')  
+          setErrormessage('') 
+          setSummarizedText('') 
           setLoading(true)
           // summarize
           const summarize = await Summary.summarize({text: defaultText, format: 'paragraph', extractiveness: 'medium', temperature: 0.3, additionalCommand:"Generate a summary _" })
           setSummarizedText(summarize.summary)
           setisDisabled(false)
+          setLoading(false)
          } catch (error) {
           setErrormessage('Something went wrong please try again later')
          }
@@ -32,7 +35,9 @@ export default function SummarizeTextArea(){
      </div>
      <div className="flex flex-col items-center laptop:flex-row w-full space-y-[2rem] laptop:space-y-0 laptop:space-x-[3rem]">
      <textarea  name="defaultext"  className="textarea " value={defaultText} placeholder="Paste text here" onChange={e => setDefaultText(e.target.value)}  />
-      <textarea name="summarizedtext" className="textarea-2"  value={summarizedText} placeholder="Summarized Text Will Be Here" disabled={isDisabled} ></textarea>
+      <div className="textarea-2">
+        {summarizedText === '' ? 'Summarized Text Will Be Here' : <Typewriter text={summarizedText} speed={30}></Typewriter>}
+      </div>
      </div>
     <div className="bottom-0 w-full flex justify-center bg-white  h-[60px] laptop:mt-4 items-center">
     <button className="button" onClick={summarizeText}> {

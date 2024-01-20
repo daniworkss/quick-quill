@@ -58,7 +58,7 @@ export default function Newsletter(){
                   <input value={email} onChange={e => setEmail(e.target.value)} type="email" name='email' placeholder="Email Address" className="w-[85%]  tablet:w-[70%] laptop:w-[85%] p-2 laptop:p-3 rounded-[5px]" required />
                   <button action='submit' className={` w-[45%] tablet:w-[35%] cursor-pointer font-bold p-3 rounded-[5px] mt-4 laptop:p-3 laptop:w-[35%] ${loading === true ?'bg-Blue text-white': 'text-Blue bg-white'}`}>{ loading === true ? <Beatloader/> : 'Submit'}</button>
               </form>
-                <div className={` text-[14px] ${message === 'Email is sent' ? 'bg-white text-Blue' : 'bg-white text-red-500'} w-[40%] laptop:w-[30%]  absolute top-[2rem] opacity-[90%]  flex justify-center items-center text-[14px]   font-semibold rounded-[0px] laptop:bg-white ${modal === true ? 'h-[40px] transition-all duration-[.2s] ease-in' : 'h-0 overflow-hidden transition-all duration-[.2s] ease-in '}`}>{message}</div>
+                <div className={` text-[14px] ${message === 'Email is sent' ? 'bg-white text-Blue' : 'bg-white text-red-500'} w-[50%] laptop:w-[30%]  absolute top-[2rem] opacity-[90%]  flex justify-center items-center text-[14px]   font-semibold rounded-[0px] laptop:bg-white ${modal === true ? 'h-[40px] transition-all duration-[.2s] ease-in' : 'h-[0px] overflow-hidden transition-all duration-[.2s] ease-in '}`}>{message}</div>
 
             </Slideup>
        </div>

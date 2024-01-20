@@ -49,7 +49,7 @@ export default function Newsletter(){
         <h2 className="text-center  text-[32px] font-semibold  tablet:text-[32px] laptop:text-[42px] tablet:text-center text-black">Join Our <strong className="text-Blue">Community</strong> </h2>
         <p className="text-center text-gray-600 text-[14px] ">Subscribe To Our NewsLetter</p>
        <div className=" w-[95%] mt-[1rem] laptop:mt-[2rem] laptop:flex laptop:justify-between laptop:space-x-[3rem] tablet:justify-center "> 
-            <Slidein direction={'-10%'} delay={.3} className="hidden laptop:block bg-red-500 w-[80%] h-[400px]">
+            <Slidein direction={'-10%'} delay={.3} className="hidden laptop:block w-[80%] h-[400px]">
               <Image src={'/images/newsletter.jpg'} alt="news-letter image " fill loading="lazy"></Image>
             </Slidein >
             <Slideup percent={'10%'} className=" form-container relative tablet:w-[75%] bg-Blue h-[350px] laptop:h-[400px] rounded-[10px] mt-[.5rem] laptop:mt-0 flex items-center justify-center tablet:ml-auto tablet:mr-auto laptop:m-0">

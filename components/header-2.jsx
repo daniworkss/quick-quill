@@ -23,7 +23,7 @@ export default function Header2() {
   return (
     <div className="bg-white">
       <header className='w-full flex justify-center'>
-        <nav className=' w-full pl-4 pr-4 tablet:pl-8 tablet:pr-8 flex items-center justify-between bg-Blue laptop:bg-white h-[70px] tablet:h-[85px] laptop:h-[100px] static overflow-x-hidden  laptop:pl-[2rem] laptop:pr-[3rem]' style={{maxWidth:'1300px'}}>
+        <nav className=' w-full pl-4 pr-4 tablet:pl-8 tablet:pr-8 flex items-center justify-between bg-Blue laptop:bg-white h-[70px] tablet:h-[85px] laptop:h-[100px] static overflow-x-hidden  laptop:pl-[2rem] laptop:pr-[3rem]' style={{maxWidth:'1700px'}}>
           <Link href={'/'}>
             <h1 className="logo text-white laptop:text-Blue text-[26px] tablet:text-[36px]">Quick<strong className='laptop:text-black'>Quill</strong></h1>     
           </Link>
@@ -40,7 +40,7 @@ export default function Header2() {
             <Link href={'/contact-us'} onClick={handleMenuOptionClick} className='text-Blue font-bold laptop:hidden laptop:rounded-[5px] laptop:pl-4 laptop:pr-4'>Contact Us</Link>
           </ul>
           <div className='hidden laptop:flex w-[180px] justify-center'>
-          <Link href={'/contact-us'} onClick={handleMenuOptionClick} className='text-white text-center w-[150px] laptop:block font-bold laptop:bg-Blue laptop:p-3 laptop:rounded-[5px] laptop:pl-6 laptop:pr-6 hover:bg-inherit hover:text-Blue hover:border-Blue hover:border-[2px]'>Contact Us</Link>
+          <Link href={'/contact-us'} onClick={handleMenuOptionClick} className='text-white text-center w-[150px] laptop:block font-bold laptop:bg-Blue laptop:p-3 laptop:rounded-[5px] laptop:pl-6 laptop:pr-6 hover:bg-inherit hover:text-Blue hover:border-Blue hover:border-[1px] laptop:hover:transition-all laptop:duration-[.3s] ease-in'>Contact Us</Link>
           </div>   
 
           {/* for shadow-background */}

@@ -2,7 +2,7 @@ import Link from "next/link"
 export default function Footer(){
   return (
     <div className="radius-box-3 bg-Blue w-full flex justify-center flex-col items-center">
-    <div className="bg-Blue  pl-4  w-full  radius-box-3 pb-[2rem] laptop:pb-[3rem] pt-[3rem]  laptop:pt-[4rem] space-y-[2rem] laptop:space-y-0 laptop:flex justify-around laptop:pl-[5rem] laptop:pr-[5rem] laptop:items-center max-w-[1300px]">
+    <div className="bg-Blue  pl-4  w-full  radius-box-3 pb-[2rem] laptop:pb-[3rem] pt-[3rem]  laptop:pt-[4rem] space-y-[2rem] laptop:space-y-0 laptop:flex justify-around laptop:pl-[5rem] laptop:pr-[5rem] laptop:items-center max-w-[1700px]">
     <h1 className="logo text-white text-[36px] tablet:text-[36px] laptop:text-center laptop:text-[42px]">Quick<strong className=''>Quill</strong></h1>     
     <div className="flex gap-[2rem]">
               <div> 

@@ -6,10 +6,11 @@ export default function Features(){
     <div>
       <Slidein direction={'0%'} delay={0.5} className="radius-box  pb-[4rem] bg-Blue flex flex-col pt-[3rem] space-y-[1.5rem] laptop:flex-row laptop:h-[500px] laptop:items-center  ml-auto mr-auto">
         {/* hidden on laptop but visible on mobile */}
-      <div className=" pb-[4rem]  flex flex-col pt-[3rem] space-y-[1.5rem]  laptop:flex-row laptop:h-[500px] laptop:items-center  ml-auto mr-auto max-w-[1400px]">
+      <div className=" pb-[4rem]  flex flex-col pt-[3rem] space-y-[1.5rem]  laptop:flex-row laptop:h-[500px] laptop:items-center  ml-auto mr-auto max-w-[1700px]">
       <h2 className=" laptop:hidden text-[26px]  font-semibold  pl-3 tablet:text-[32px] tablet:text-center text-center text-white ">Summarize <strong className="text-white">Notes</strong></h2>
           <Slideup percent={'10%'} delay={'.6'} className="w-full justify-center flex ">
             <div  className=" w-[330px] h-[210px]  tablet:w-[80%] tablet:h-[300px] laptop:h-[350px] flex justify-center  laptop:items-center">
+               {/* play video from outside source */}
                <iframe src="https://streamable.com/e/i0ebll?autoplay=1&nocontrols=1" allow="autoplay"></iframe>
             </div>
           </Slideup>
@@ -28,7 +29,7 @@ export default function Features(){
 {/* for pararphrasing */}
         <div className=" pb-[4rem] bg-inherit flex flex-col pt-[3rem] space-y-[1.5rem] laptop:flex-row-reverse laptop:h-[500px] laptop:items-center ">
         {/* hidden on laptop but visible on mobile */}
-         <div className=" bg-inherit flex flex-col pt-[3rem] space-y-[1.5rem] laptop:flex-row-reverse laptop:h-[500px] laptop:items-center max-w-[1400px] ml-auto mr-auto">
+         <div className=" bg-inherit flex flex-col pt-[3rem] space-y-[1.5rem] laptop:flex-row-reverse laptop:h-[500px] laptop:items-center max-w-[1700px] ml-auto mr-auto">
             <h2 className="text-black  laptop:hidden text-[26px]  font-semibold  pl-3 tablet:text-[32px] tablet:text-center text-center">Paraphrase <strong className="text-Blue">Notes</strong></h2>
               <Slidein direction={'100%'} delay={0.5} className="w-full justify-center flex ">
               <div  className=" w-[330px] h-[210px] tablet:h-[300px] overflow-hidden tablet:w-[80%]   laptop:h-[350px] flex justify-center  laptop:items-center">

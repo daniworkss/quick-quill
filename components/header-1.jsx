@@ -20,7 +20,7 @@ export default function Header1() {
   }
   return (
     <header className='w-full flex justify-center'>
-        <nav className=' w-full pl-4 pr-4 tablet:pl-8 tablet:pr-8 flex items-center justify-between bg-[#9193f5] laptop:bg-white h-[80px] tablet:h-[120px] laptop:h-[100px] static overflow-x-hidden ' style={{maxWidth:'1300px'}}>
+        <nav className=' w-full pl-4 pr-4 tablet:pl-8 tablet:pr-8 flex items-center justify-between bg-[#9193f5] laptop:bg-white h-[80px] tablet:h-[120px] laptop:h-[100px] static overflow-x-hidden ' style={{maxWidth:'1700px'}}>
           <Link href={'/'}>
             <h1 className="logo text-white laptop:text-black text-[26px] tablet:text-[36px]">Quick<strong className='laptop:text-Blue'>Quill</strong></h1>
           </Link>
@@ -36,7 +36,10 @@ export default function Header1() {
             <Link href={'#faq'} onClick={handleMenuOptionClick} className=''>FAQ's</Link>
             <Link href={'/contact-us'} onClick={handleMenuOptionClick} className='text-Blue font-bold laptop:hidden laptop:rounded-[5px] laptop:pl-4 laptop:pr-4'>Contact Us</Link>
           </ul>
-          <Link href={'/contact-us'} onClick={handleMenuOptionClick} className='text-white laptop:bg-Blue hidden laptop:block font-bold  laptop:p-3 laptop:rounded-[5px] laptop:pl-6 laptop:pr-6 hover:border-Blue hover:bg-inherit transition-colors duration-[.2s] hover:text-Blue border-[1px]'>Contact Us</Link>
+          <div className='hidden laptop:flex w-[180px] justify-center'>
+          <Link href={'/contact-us'} onClick={handleMenuOptionClick} className='text-white text-center w-[150px] laptop:block font-bold laptop:bg-Blue laptop:p-3 laptop:rounded-[5px] laptop:pl-6 laptop:pr-6 hover:bg-inherit hover:text-Blue hover:border-Blue hover:border-[1px] laptop:hover:transition-all laptop:duration-[.3s] ease-in'>Contact Us</Link>
+          </div>   
+
        {/* for shadow-background */}
         <div  onClick={handleMenuOptionClick} className={`dark-bg bg-black absolute top-0 right-0 h-screen laptop:hidden w-full opacity-[30%]  ${!openMenu ? 'block': 'hidden'}`}></div>
     </nav>

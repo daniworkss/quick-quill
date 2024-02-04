@@ -12,7 +12,7 @@ module.exports = {
         "mobile": "375px",
         "tablet": "700px",
         "laptop": "1200px",
-        "desktop": "1400px"
+        "desktop": "1500px"
        },
        colors:{
         "Blue": '#6366F1',
